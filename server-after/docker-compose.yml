@@ -1,0 +1,84 @@
+version: '3'
+name: hypermedia-demo
+
+services:
+  catalog-api:
+    image: catalog-api
+    container_name: catalog-api
+    ports:
+      - "2113:80"
+    environment:
+      HY_INSTANCE_NAME: catalog-api development container
+      HY_MONGO_HOST: demo-mongo
+      HY_API_PORT: 80
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+      HY_GATEWAY_URL: http://api-gateway
+      HY_BASE_URL: http://localhost:2113
+    depends_on:
+      - api-gateway
+      - demo-mongo
+
+  notification-api:
+    image: notification-api
+    container_name: notification-api
+    ports:
+      - "2114:80"
+    environment:
+      HY_INSTANCE_NAME: notification-api development container
+      HY_MONGO_HOST: demo-mongo
+      HY_API_PORT: 80
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+      HY_GATEWAY_URL: http://api-gateway
+      HY_BASE_URL: http://localhost:2114
+    depends_on:
+      - api-gateway
+      - demo-mongo
+
+  region-api:
+    image: region-api
+    container_name: region-api
+    ports:
+      - "2115:80"
+    environment:
+      HY_INSTANCE_NAME: region-api development container
+      HY_MONGO_HOST: demo-mongo
+      HY_API_PORT: 80
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+      HY_GATEWAY_URL: http://api-gateway
+      HY_BASE_URL: http://localhost:2115
+    depends_on:
+      - api-gateway
+      - demo-mongo
+
+
+  api-gateway:
+    image: pointw/hypermea-gateway
+    container_name: api-gateway
+    ports:
+      - "2112:80"
+    environment:
+      HY_INSTANCE_NAME: api-gateway development container
+      HY_MONGO_HOST: demo-mongo
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+      GW_CURIES_NAMESPACE_URI: uri://demo.cri.com
+    depends_on:
+      - demo-mongo
+
+
+
+  demo-mongo:
+    image: mongo
+    container_name: demo-mongo
+    volumes:
+      - demo-mongodb:/data/db
+      - demo-mongodb_config:/data/configdb
+    ports:
+      - "27017:27017"
+
+volumes:
+     demo-mongodb:
+     demo-mongodb_config:

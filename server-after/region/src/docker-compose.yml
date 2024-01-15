@@ -1,0 +1,33 @@
+version: '3'
+name: region-api
+
+services:
+  region-api:
+    image: region-api
+    container_name: region-api
+    build: .
+    ports:
+      - "2112:80"
+    environment:
+      HY_INSTANCE_NAME: region-api development container
+      HY_MONGO_HOST: region-api-mongo
+      HY_API_PORT: 80
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+    volumes:
+    - ./logging:/var/log/region-api
+    depends_on:
+      - region-api-mongo
+
+  region-api-mongo:
+    image: mongo
+    container_name: region-api-mongo
+    volumes:
+      - region-api-mongodb:/data/db
+      - region-api-mongodb_config:/data/configdb
+    ports:
+      - "27017:27017"
+
+volumes:
+     region-api-mongodb:
+     region-api-mongodb_config:

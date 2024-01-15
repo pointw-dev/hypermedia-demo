@@ -1,0 +1,33 @@
+version: '3'
+name: notification-api
+
+services:
+  notification-api:
+    image: notification-api
+    container_name: notification-api
+    build: .
+    ports:
+      - "2112:80"
+    environment:
+      HY_INSTANCE_NAME: notification-api development container
+      HY_MONGO_HOST: notification-api-mongo
+      HY_API_PORT: 80
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+    volumes:
+    - ./logging:/var/log/notification-api
+    depends_on:
+      - notification-api-mongo
+
+  notification-api-mongo:
+    image: mongo
+    container_name: notification-api-mongo
+    volumes:
+      - notification-api-mongodb:/data/db
+      - notification-api-mongodb_config:/data/configdb
+    ports:
+      - "27017:27017"
+
+volumes:
+     notification-api-mongodb:
+     notification-api-mongodb_config:

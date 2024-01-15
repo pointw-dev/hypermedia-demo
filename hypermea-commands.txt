@@ -1,0 +1,55 @@
+Create API space (single API)
+=============================
+hy create catalog-api
+
+hy resource create regions
+hy resource create notifications
+hy resource create brands
+hy resource create catalogs
+hy resource create families
+hy resource create feature_displays
+
+hy link create region notifications
+hy link create region brands
+hy link create region catalogs
+hy link create brand families
+hy link create catalog families
+hy link create family feature_displays
+hy link create catalog feature_displays
+
+
+
+
+Create API space (multiple APIs)
+=============================
+in catalog folder
+-----------------
+hy api create catalog-api --add-docker
+hy resource create brands
+hy resource create catalogs
+hy resource create families
+hy resource create feature_displays
+
+hy link create remote:region brands
+hy link create remote:region catalogs
+hy link create brand families
+hy link create catalog families
+hy link create family feature_displays
+hy link create catalog feature_displays
+
+
+in notification folder
+----------------------
+hy api create notification-api --add-docker
+hy resource create notifications
+hy link create remote:region notifications
+
+
+
+in region folder
+----------------
+hy api create region-api --add-docker
+hy resource create regions
+hy link create region remote:notifications
+hy link create region remote:brands
+hy link create region remote:catalogs
