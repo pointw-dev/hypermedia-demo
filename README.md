@@ -2,7 +2,7 @@
 
 A demonstration of an important benefit of clients following the hypermedia constraint.
 
-This repo is a companion to this video: ![Hypermedia Constraint](https://app.cri.com/images/HypermediaConstraint.mp4)
+This repo is a companion to this video:  [Hypermedia Constraint](https://app.cri.com/images/HypermediaConstraint.mp4)
 
 ## Contents
 
