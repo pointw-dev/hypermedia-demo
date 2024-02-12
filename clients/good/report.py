@@ -1,7 +1,7 @@
 from halchemy import Api
 
 API = Api('http://localhost:2112')
-  = API.get('/')
+ROOT = API.get('/')
 
 
 def main():
