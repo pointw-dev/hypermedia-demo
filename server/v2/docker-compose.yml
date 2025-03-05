@@ -1,0 +1,98 @@
+name: event-buddy
+
+services:
+  venues-service:
+    image: pointw/venues-service
+    container_name: venues-service
+    ports:
+      - "2113:80"
+    environment:
+      AUTH_ADD_BASIC: true
+      HY_INSTANCE_NAME: venues-service development container
+      HY_MONGO_HOST: demo-mongo
+      HY_MONGO_DBNAME: event-buddy
+      HY_API_PORT: 80
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+      HY_GATEWAY_URL: http://api-gateway
+      HY_BASE_URL: http://$IP_ADDRESS:2113
+    depends_on:
+      - api-gateway
+      - demo-mongo
+
+  registrations-service:
+    image: pointw/registrations-service
+    container_name: registrations-service
+    ports:
+      - "2114:80"
+    environment:
+      AUTH_ADD_BASIC: true
+      HY_INSTANCE_NAME: registrations-service development container
+      HY_MONGO_HOST: demo-mongo
+      HY_MONGO_DBNAME: event-buddy
+      HY_API_PORT: 80
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+      HY_GATEWAY_URL: http://api-gateway
+      HY_BASE_URL: http://$IP_ADDRESS:2114
+    depends_on:
+      - api-gateway
+      - demo-mongo
+
+  events-service:
+    image: pointw/events-service
+    container_name: events-service
+    ports:
+      - "2115:80"
+    environment:
+      AUTH_ADD_BASIC: true
+      HY_INSTANCE_NAME: events-service development container
+      HY_MONGO_HOST: demo-mongo
+      HY_MONGO_DBNAME: event-buddy
+      HY_API_PORT: 80
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+      HY_GATEWAY_URL: http://api-gateway
+      HY_BASE_URL: http://$IP_ADDRESS:2115
+    depends_on:
+      - api-gateway
+      - demo-mongo
+
+  accounts-service:
+    image: pointw/accounts-service
+    container_name: accounts-service
+    ports:
+      - "2116:80"
+    environment:
+      AUTH_ADD_BASIC: true
+      HY_INSTANCE_NAME: accounts-service development container
+      HY_MONGO_HOST: demo-mongo
+      HY_MONGO_DBNAME: event-buddy
+      HY_API_PORT: 80
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+      HY_GATEWAY_URL: http://api-gateway
+      HY_BASE_URL: http://$IP_ADDRESS:2116
+    depends_on:
+      - api-gateway
+      - demo-mongo
+
+  api-gateway:
+    image: pointw/hypermea-gateway
+    container_name: api-gateway
+    ports:
+      - "2112:80"
+    environment:
+      HY_INSTANCE_NAME: api-gateway development container
+      HY_MONGO_HOST: demo-mongo
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+      GW_CURIES_NAMESPACE_URI: uri://event-buddy.pointw.com
+    depends_on:
+      - demo-mongo
+
+  demo-mongo:
+    image: mongo
+    container_name: demo-mongo
+    ports:
+      - "27017:27017"

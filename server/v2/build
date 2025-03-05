@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd accounts
+hy docker build -r pointw
+cd ../events
+hy docker build -r pointw
+cd ../registrations
+hy docker build -r pointw
+cd ../venues
+hy docker build -r pointw

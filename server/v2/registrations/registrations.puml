@@ -1,0 +1,16 @@
+@startuml
+hide <<resource>> circle
+hide <<remote>> circle
+hide members 
+
+skinparam class {
+    BackgroundColor<<remote>> LightBlue
+}
+
+class registrations <<resource>>
+class account <<remote>>
+class event <<remote>>
+
+account ||-left-o{ registrations
+event ||-right-o{ registrations
+@enduml
