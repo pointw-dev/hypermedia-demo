@@ -3,8 +3,9 @@
 import json
 from halchemy import Api
 
-API = Api('http://localhost:2112')
-ROOT = API.root.get()
+api = Api('http://localhost:2112')
+ROOT = api.root.get()
+VERBOSE = True
 
 VENUES = [
 	{ "name": "Developer Meeting Room",
@@ -61,28 +62,52 @@ ACCOUNTS = [
 ]
 
 
+def vprint(message):
+	if VERBOSE:
+		print(message)
+
+def rprint(result):
+	emoji = '🚨 ' if result._halchemy.response.status_code >399 else ''
+	vprint(f'- {result._halchemy.request.url}: {emoji}{result._halchemy.response.status_code}')
+	
+
+
 def clear_resources():
-	API.follow(ROOT).to('registrations').delete()
-	API.follow(ROOT).to('events').delete()
-	API.follow(ROOT).to('venues').delete()
-	API.follow(ROOT).to('accounts').delete()
+	vprint('Deleting...')
+	result = api.follow(ROOT).to('registration').delete()
+	rprint(result)
+	result = api.follow(ROOT).to('event').delete()
+	rprint(result)
+	result = api.follow(ROOT).to('venue').delete()
+	rprint(result)
+	result = api.follow(ROOT).to('account').delete()
+	rprint(result)
 
 
 def populate_resources():
+	vprint('Adding accounts...')
 	for account in ACCOUNTS:
-		result = API.follow(ROOT).to('accounts').post(account)		
+		result = api.follow(ROOT).to('account').post(account)
+		rprint(result)
 
+
+	vprint('Adding venues...')
 	for venue in VENUES:
 		events = venue['events']
 		del venue['events']
-		venue = API.follow(ROOT).to('venues').post(venue)
+		new_venue = api.follow(ROOT).to('venue').post(venue)
+		rprint(new_venue)
 		first = True
+		vprint('Adding events...')
 		for event in events:
-			new_event = API.follow(venue).to('events').post(event)
+			new_event = api.follow(new_venue).to('event').post(event)
+			rprint(new_event)
 			if first:
 				first = False
 				for index in range(0,4):
-					result = API.follow(new_event).to('register').put({'username': ACCOUNTS[index]['username']})
+					vprint('Registering...')
+					result = api.follow(new_event).to('register').put({'username': ACCOUNTS[index]['username']})
+					rprint(result)
 
 
 def reset_scenario():

@@ -16,15 +16,15 @@ class Venue(dict):
 
     # <<api>>
     def get_events(self):
-        url = Api.url_from_resource(self, 'events')
+        url = Api.url_from_resource(self, 'event')
         result = requests.get(url, headers=Api.get_headers())
-        events_data = result.json()['_items']
+        events_data = result.json()['_embedded']['event']
         return [Event(event) for event in events_data]
 
     # <<api>>
     def add_event(self, event_data):
         data = json.dumps(event_data)
-        url = Api.url_from_resource(self, 'events')
+        url = Api.url_from_resource(self, 'event')
         result = requests.post(url, data=data, headers=Api.get_headers())
         if result.ok:
             print('\n> Success')
@@ -89,9 +89,9 @@ class Venue(dict):
     @staticmethod
     def select_venue():
         root = Api.get_root_resource()
-        url = Api.url_from_resource(root, 'venues')
+        url = Api.url_from_resource(root, 'venue')
         result = requests.get(url, headers=Api.get_headers())
-        venues_data = result.json()['_items']
+        venues_data = result.json()['_embedded']['venue']
         venues = [Venue(venue) for venue in venues_data]
 
         Console.title('Venues')

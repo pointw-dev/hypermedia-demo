@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cp ~/git/pointw-dev/hypermea/src/dist/hypermea_core-0.9.50-py3-none-any.whl event-service/src
+cp ~/git/pointw-dev/hypermea/src/dist/hypermea_core-0.9.50-py3-none-any.whl venue-service/src
+cp ~/git/pointw-dev/hypermea/src/dist/hypermea_core-0.9.50-py3-none-any.whl registration-service/src
+cp ~/git/pointw-dev/hypermea/src/dist/hypermea_core-0.9.50-py3-none-any.whl account-service/src

@@ -1,1 +1,1 @@
-{"project_name": "event-buddy", "addins": {"auth": {}, "docker": {}, "validation": {}}}
+{"project_name": "event-buddy", "addins": {"git": {}, "auth": {}}}

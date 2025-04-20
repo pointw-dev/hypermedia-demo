@@ -2,15 +2,15 @@ name: event-buddy
 
 services:
   venues-service:
-    image: pointw/venues-service
-    container_name: venues-service
+    image: pointw/venue-service
+    container_name: venue-service
     ports:
       - "2113:80"
     environment:
       AUTH_ADD_BASIC: true
-      HY_INSTANCE_NAME: venues-service development container
-      HY_MONGO_HOST: demo-mongo
-      HY_MONGO_DBNAME: event-buddy
+      HY_INSTANCE_NAME: venue-service development container
+      MONGO_HOST: demo-mongo
+      MONGO_DBNAME: event-buddy
       HY_API_PORT: 80
       HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
       HY_CACHE_EXPIRES: 30
@@ -21,15 +21,15 @@ services:
       - demo-mongo
 
   registrations-service:
-    image: pointw/registrations-service
-    container_name: registrations-service
+    image: pointw/registration-service
+    container_name: registration-service
     ports:
       - "2114:80"
     environment:
       AUTH_ADD_BASIC: true
-      HY_INSTANCE_NAME: registrations-service development container
-      HY_MONGO_HOST: demo-mongo
-      HY_MONGO_DBNAME: event-buddy
+      HY_INSTANCE_NAME: registration-service development container
+      MONGO_HOST: demo-mongo
+      MONGO_DBNAME: event-buddy
       HY_API_PORT: 80
       HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
       HY_CACHE_EXPIRES: 30
@@ -39,16 +39,16 @@ services:
       - api-gateway
       - demo-mongo
 
-  events-service:
-    image: pointw/events-service
-    container_name: events-service
+  event-service:
+    image: pointw/event-service
+    container_name: event-service
     ports:
       - "2115:80"
     environment:
       AUTH_ADD_BASIC: true
-      HY_INSTANCE_NAME: events-service development container
-      HY_MONGO_HOST: demo-mongo
-      HY_MONGO_DBNAME: event-buddy
+      HY_INSTANCE_NAME: event-service development container
+      MONGO_HOST: demo-mongo
+      MONGO_DBNAME: event-buddy
       HY_API_PORT: 80
       HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
       HY_CACHE_EXPIRES: 30
@@ -58,16 +58,16 @@ services:
       - api-gateway
       - demo-mongo
 
-  accounts-service:
-    image: pointw/accounts-service
-    container_name: accounts-service
+  account-service:
+    image: pointw/account-service
+    container_name: account-service
     ports:
       - "2116:80"
     environment:
       AUTH_ADD_BASIC: true
-      HY_INSTANCE_NAME: accounts-service development container
-      HY_MONGO_HOST: demo-mongo
-      HY_MONGO_DBNAME: event-buddy
+      HY_INSTANCE_NAME: account-service development container
+      MONGO_HOST: demo-mongo
+      MONGO_DBNAME: event-buddy
       HY_API_PORT: 80
       HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
       HY_CACHE_EXPIRES: 30
@@ -78,7 +78,7 @@ services:
       - demo-mongo
 
   api-gateway:
-    image: pointw/hypermea-gateway
+    image: pointw/hypermea-gateway:0.9.3
     container_name: api-gateway
     ports:
       - "2112:80"

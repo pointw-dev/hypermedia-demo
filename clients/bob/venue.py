@@ -19,7 +19,7 @@ class Venue(dict):
     def get_events(self):
         url = Api.url_join(BASE_API_URL, f'/venues/{self["_id"]}/events')
         result = requests.get(url, headers=Api.get_headers())
-        events_data = result.json()['_items']
+        events_data = result.json()['_embedded']['event']
         return [Event(event) for event in events_data]
 
     # <<api>>
@@ -91,7 +91,7 @@ class Venue(dict):
     def select_venue():
         url = Api.url_join(BASE_API_URL, '/venues')
         result = requests.get(url, headers=Api.get_headers())
-        venues_data = result.json()['_items']
+        venues_data = result.json()['_embedded']['venue']
         venues = [Venue(venue) for venue in venues_data]
 
         Console.title('Venues')

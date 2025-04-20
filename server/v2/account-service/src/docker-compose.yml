@@ -1,0 +1,30 @@
+name: account-service
+
+services:
+  account-service:
+    image: account-service
+    container_name: account-service
+    build: .
+    ports:
+      - "2112:80"
+    environment:
+      HY_INSTANCE_NAME: account-service development container
+      MONGO_HOST: account-service-mongo
+      HY_SERVICE_PORT: 80
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+    depends_on:
+      - account-service-mongo
+
+  account-service-mongo:
+    image: mongo
+    container_name: account-service-mongo
+    volumes:
+      - account-service-mongodb:/data/db
+      - account-service-mongodb_config:/data/configdb
+    ports:
+      - "27017:27017"
+
+volumes:
+     account-service-mongodb:
+     account-service-mongodb_config:

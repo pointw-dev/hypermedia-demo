@@ -1,10 +1,12 @@
 #!/bin/bash
 
-cd accounts
+docker compose down
+
+cd account-service
 hy docker build -r pointw
-cd ../events
+cd ../event-service
 hy docker build -r pointw
-cd ../registrations
+cd ../registration-service
 hy docker build -r pointw
-cd ../venues
+cd ../venue-service
 hy docker build -r pointw

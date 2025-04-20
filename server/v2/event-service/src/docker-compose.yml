@@ -1,0 +1,30 @@
+name: event-service
+
+services:
+  event-service:
+    image: event-service
+    container_name: event-service
+    build: .
+    ports:
+      - "2112:80"
+    environment:
+      HY_INSTANCE_NAME: event-service development container
+      MONGO_HOST: event-service-mongo
+      HY_SERVICE_PORT: 80
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+    depends_on:
+      - event-service-mongo
+
+  event-service-mongo:
+    image: mongo
+    container_name: event-service-mongo
+    volumes:
+      - event-service-mongodb:/data/db
+      - event-service-mongodb_config:/data/configdb
+    ports:
+      - "27017:27017"
+
+volumes:
+     event-service-mongodb:
+     event-service-mongodb_config:

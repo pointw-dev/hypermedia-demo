@@ -1,0 +1,24 @@
+Eve==2.2.0
+Flask-Cors==5.0.0
+requests==2.32.3
+# hypermea-core==0.9.50
+hypermea-core @ file:///service/hypermea_core-0.9.50-py3-none-any.whl
+html2text==2024.2.26
+
+pydantic==2.11.3
+pydantic-settings==2.8.1
+pydantic_core==2.33.1
+
+pytest~=8.3.5
+pytest-bdd==8.1.0
+pytest-mock==3.14.0
+# pyfakefs==5.8.0
+allure-pytest==2.14.0
+assertpy==1.1
+uritemplate==4.1.1
+
+# start: added by add-auth
+hypermea-negotiable-auth==0.9.9
+PyJWT==2.10.1
+cryptography==44.0.2
+# end: added by add-auth

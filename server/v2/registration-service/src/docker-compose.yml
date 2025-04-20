@@ -1,0 +1,30 @@
+name: registration-service
+
+services:
+  registration-service:
+    image: registration-service
+    container_name: registration-service
+    build: .
+    ports:
+      - "2112:80"
+    environment:
+      HY_INSTANCE_NAME: registration-service development container
+      MONGO_HOST: registration-service-mongo
+      HY_SERVICE_PORT: 80
+      HY_CACHE_CONTROL: no-cache, no-store, must-revalidate
+      HY_CACHE_EXPIRES: 30
+    depends_on:
+      - registration-service-mongo
+
+  registration-service-mongo:
+    image: mongo
+    container_name: registration-service-mongo
+    volumes:
+      - registration-service-mongodb:/data/db
+      - registration-service-mongodb_config:/data/configdb
+    ports:
+      - "27017:27017"
+
+volumes:
+     registration-service-mongodb:
+     registration-service-mongodb_config:

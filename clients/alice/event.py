@@ -29,17 +29,17 @@ class Event(dict):
 
     # <<api>>
     def view_attendees(self):
-        url = Api.url_from_resource(self, 'registrations')
-        url += '?embedded={"_account_ref":1}'
+        url = Api.url_from_resource(self, 'registration')
+        url += '?embed=account'
         result = requests.get(url, headers=Api.get_headers())
         registrations = result.json()
         print(f'\nAttending "{self.name}" on {self["date"]} at {self["time"]}:')
 
-        if not registrations['_items']:
+        if not registrations['_embedded']['registration']:
             print('- no one has registered yet')
         else:
-            for registration in registrations['_items']:
-                print(f"- {registration['_account_ref'].get('name', 'Not authorized to view attendees')}")
+            for registration in registrations['_embedded']['registration']:
+                print(f"- {registration['_embedded']['account'].get('name', 'Not authorized to view attendees')}")
 
     @staticmethod
     def get_new_event():
