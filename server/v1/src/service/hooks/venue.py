@@ -66,5 +66,10 @@ def _add_external_parent_links(venue):
     if not settings.hypermea.gateway_url:
         return
     venue_id = get_resource_id(venue, 'venues')
+    if '_owner_ref' in venue:
+        venue['_links']['owner'] = {
+            'href': f"{get_href_from_gateway('owner')}/{venue['_owner_ref']}",
+            
+        }
 
     # == do not edit this method above this line ==

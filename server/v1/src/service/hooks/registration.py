@@ -32,6 +32,11 @@ def add_hooks(app):
     app.on_post_POST_accounts_registrations += add_etag_header_to_post
     app.on_post_POST_accounts_registrations += _post_registrations
 
+    app.on_fetched_item_venues_registrations += _add_links_to_registration
+    app.on_fetched_resource_venues_registrations += _add_links_to_registrations_collection
+    app.on_post_POST_venues_registrations += add_etag_header_to_post
+    app.on_post_POST_venues_registrations += _post_registrations
+
 
 @trace
 def _post_registrations(request, payload):
@@ -84,6 +89,11 @@ def _add_external_parent_links(registration):
     if '_account_ref' in registration:
         registration['_links']['account'] = {
             'href': f"{get_href_from_gateway('account')}/{registration['_account_ref']}",
+            
+        }
+    if '_venue_ref' in registration:
+        registration['_links']['venue'] = {
+            'href': f"{get_href_from_gateway('venue')}/{registration['_venue_ref']}",
             
         }
 

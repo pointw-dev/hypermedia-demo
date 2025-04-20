@@ -1,15 +1,14 @@
 Eve==2.2.0
 Flask-Cors==5.0.0
 requests==2.32.3
-hypermea-core==0.9.50
-# hypermea-core @ file:///service/hypermea_core-0.9.50-py3-none-any.whl
+# hypermea-core==0.9.50
+hypermea-core @ file:///service/hypermea_core-0.9.50-py3-none-any.whl
 html2text==2024.2.26
+isodate==0.7.2
 
 pydantic==2.11.3
 pydantic-settings==2.8.1
 pydantic_core==2.33.1
-
-isodate==0.7.2
 
 pytest~=8.3.5
 pytest-bdd==8.1.0

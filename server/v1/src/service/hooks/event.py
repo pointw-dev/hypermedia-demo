@@ -35,6 +35,11 @@ def add_hooks(app):
     #####
     app.on_pre_POST_events += _intercept
     app.on_insert_venues_events += _confirm_availability
+
+    app.on_fetched_item_accounts_events += _add_links_to_event
+    app.on_fetched_resource_accounts_events += _add_links_to_events_collection
+    app.on_post_POST_accounts_events += add_etag_header_to_post
+    app.on_post_POST_accounts_events += _post_events
     #####
 
 
@@ -125,6 +130,10 @@ def _add_external_children_links(event):
     if not settings.hypermea.gateway_url:
         return
     event_id = get_resource_id(event, 'events')
+    event['_links']['update'] = {
+        'href': f"{get_href_from_gateway('update')}/event/{event_id}",
+        
+    }
 
     # == do not edit this method above this line ==
 
@@ -137,6 +146,11 @@ def _add_external_parent_links(event):
     if '_venue_ref' in event:
         event['_links']['venue'] = {
             'href': f"{get_href_from_gateway('venue')}/{event['_venue_ref']}",
+            
+        }
+    if '_account_ref' in event:
+        event['_links']['account'] = {
+            'href': f"{get_href_from_gateway('account')}/{event['_account_ref']}",
             
         }
 
