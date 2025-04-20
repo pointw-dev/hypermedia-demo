@@ -1,7 +1,7 @@
 name: event-buddy
 
 services:
-  venues-service:
+  venue-service:
     image: pointw/venue-service
     container_name: venue-service
     ports:
@@ -20,7 +20,7 @@ services:
       - api-gateway
       - demo-mongo
 
-  registrations-service:
+  registration-service:
     image: pointw/registration-service
     container_name: registration-service
     ports:
