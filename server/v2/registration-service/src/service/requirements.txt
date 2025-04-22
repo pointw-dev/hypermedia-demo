@@ -9,15 +9,6 @@ pydantic==2.11.3
 pydantic-settings==2.8.1
 pydantic_core==2.33.1
 
-
-pytest~=8.3.5
-pytest-bdd==8.1.0
-pytest-mock==3.14.0
-# pyfakefs==5.8.0
-allure-pytest==2.14.0
-assertpy==1.1
-uritemplate==4.1.1
-
 # start: added by add-auth
 hypermea-negotiable-auth==0.9.9
 PyJWT==2.10.1

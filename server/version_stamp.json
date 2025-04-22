@@ -1,0 +1,25 @@
+{
+    "version": "0.3.2",
+    "files": [
+        {
+            "path": "./v1/src/service/__init__.py",
+            "pattern": "VERSION = '{version}'"
+        },
+        {
+            "path": "./v2/account-service/src/service/__init__.py",
+            "pattern": "VERSION = '{version}'"
+        },
+        {
+            "path": "./v2/event-service/src/service/__init__.py",
+            "pattern": "VERSION = '{version}'"
+        },
+        {
+            "path": "./v2/registration-service/src/service/__init__.py",
+            "pattern": "VERSION = '{version}'"
+        },
+        {
+            "path": "./v2/venue-service/src/service/__init__.py",
+            "pattern": "VERSION = '{version}'"
+        }
+    ]
+}
